@@ -17,15 +17,15 @@ export default {
   name: 'app',
   data () {
     return {
-      todoList: [{data:'111',edit:false}],
+      todoList: [{data: 'hav a try!', edit: false}],
       newInput: ''
     }
   },
   methods: {
     addNew () {
       var item = {
-        data : this.newInput,
-        edit : false
+        data: this.newInput,
+        edit: false
       }
       this.todoList.push(item)
       this.newInput = ''
