@@ -1,8 +1,13 @@
 <template>
   <div id="app">
+    <h1>your todolist</h1>
   <input id="input1" v-model="newInput"></input>
   <button id="button1" v-on:click="addNew()">addNew</button>
-  <p v-for="item in todoList">{{item}}</p>
+  <li v-for="item in todoList">
+    <span @click="changeEditable(item)" v-show="!item.edit">{{ item.data }}</span>
+    <span v-show="item.edit"><input type="text" :name="index" v-model="item.data"><span @click="changeEditable(item)">确定</span></span>
+    <span class="remove" @click="remove(index)" style="color:red">X</span>
+  </li>
     <!--router-view/-->
   </div>
 </template>
@@ -12,14 +17,24 @@ export default {
   name: 'app',
   data () {
     return {
-      todoList: ['111', '222'],
+      todoList: [{data:'111',edit:false}],
       newInput: ''
     }
   },
   methods: {
     addNew () {
-      this.todoList.push(this.newInput)
+      var item = {
+        data : this.newInput,
+        edit : false
+      }
+      this.todoList.push(item)
       this.newInput = ''
+    },
+    remove (index) {
+      this.todoList.splice(index, 1)
+    },
+    changeEditable (item) {
+      item.edit = !item.edit
     }
   }
 }
@@ -45,7 +60,7 @@ export default {
 }
 #input1{
   width:360px;
-  margin:20px auto;
+  margin:40px auto;
 }
 #input1[type="text"],#btn1,#btn2{
   box-sizing: border-box;
